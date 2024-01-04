@@ -11,3 +11,7 @@ It covers a variety of Topics, from Custom Tools, to Custom Armor, all the way t
 The Source Code will always be freely available under the MIT-License, but to support me you can buy the Course which gets you almost 12 Hours of Video Lectures with more to come!
 
 Take a look at the Course right here: <a href="https://courses.kaupenjoe.net/p/modding-by-kaupenjoe-fabric-modding-for-minecraft-1-20-x" target="_blank">COURSE</a>
+
+## Work in progress: Upgrade to Minecraft 1.20.4
+
+Branches ending with '-dev' are attempts to upgrade to Minecraft 1.20.4. Everything else is identical to [the original git repo](https://github.com/Kaupenjoe/Fabric-Course-1.20.X) as of 2024-01-01.
