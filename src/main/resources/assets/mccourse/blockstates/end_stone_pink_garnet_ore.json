@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "mccourse:block/end_stone_pink_garnet_ore"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "mccourse:block/end_stone_pink_garnet_ore"
+		}
+	}
 }
