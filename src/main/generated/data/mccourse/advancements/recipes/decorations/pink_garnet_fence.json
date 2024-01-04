@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_pink_garnet": {
+    "has_pink_garnet": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mccourse:raw_pink_garnet"
+              "mccourse:pink_garnet"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pink_garnet_from_smelting_raw_pink_garnet"
+        "recipe": "mccourse:pink_garnet_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_pink_garnet"
+      "has_pink_garnet"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pink_garnet_from_smelting_raw_pink_garnet"
+      "mccourse:pink_garnet_fence"
     ]
   }
 }
