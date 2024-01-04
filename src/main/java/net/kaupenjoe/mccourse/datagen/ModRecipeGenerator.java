@@ -8,6 +8,7 @@ import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -103,5 +104,73 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 			Ingredient.ofItems(ModItems.PINK_GARNET))
 			.criterion(hasItem(ModItems.PINK_GARNET), conditionsFromItem(ModItems.PINK_GARNET))
 			.offerTo(exporter);
+
+		offerToolset(exporter, ModItems.PINK_GARNET,
+			ModItems.PINK_GARNET_SWORD,
+			ModItems.PINK_GARNET_PICKAXE,
+			ModItems.PINK_GARNET_SHOVEL,
+			ModItems.PINK_GARNET_AXE,
+			ModItems.PINK_GARNET_HOE);
+	}
+
+	/**
+	 * Create recipe for on type of tool
+	 * @param builder {@link ShapelessRecipeJsonBuilder} in which the pattern has already been set, and contains only
+	 * '#' characters for {@link Items#STICK} and 'X' for baseItem
+	 */
+	private void offerTool(RecipeExporter exporter, ItemConvertible baseItem, ShapedRecipeJsonBuilder builder) {
+		builder
+			.input('#', Items.STICK)
+			.input('X', baseItem)
+			.criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
+			.criterion(hasItem(baseItem), conditionsFromItem(baseItem))
+			.offerTo(exporter);
+	}
+
+	/**
+	 * Create recipes for common tools
+	 */
+	private void offerToolset(RecipeExporter exporter,
+		ItemConvertible baseItem,
+		ItemConvertible sword,
+		ItemConvertible pickaxe,
+		ItemConvertible shovel,
+		ItemConvertible axe,
+		ItemConvertible hoe) {
+		if (sword != null) {
+			offerTool(exporter, baseItem,
+				ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, sword)
+					.pattern("X")
+					.pattern("X")
+					.pattern("#"));
+		}
+		if (pickaxe != null) {
+			offerTool(exporter, baseItem,
+				ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, pickaxe)
+					.pattern("XXX")
+					.pattern(" # ")
+					.pattern(" # "));
+		}
+		if (shovel != null) {
+			offerTool(exporter, baseItem,
+				ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, shovel)
+					.pattern("X")
+					.pattern("#")
+					.pattern("#"));
+		}
+		if (axe != null) {
+			offerTool(exporter, baseItem,
+				ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, axe)
+					.pattern("XX")
+					.pattern("X#")
+					.pattern(" #"));
+		}
+		if (hoe != null) {
+			offerTool(exporter, baseItem,
+				ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, hoe)
+					.pattern("XX")
+					.pattern(" #")
+					.pattern(" #"));
+		}
 	}
 }
