@@ -13,21 +13,9 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_stone": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:stone"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:raw_pink_garnet_"
+        "recipe": "mccourse:pink_garnet_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -35,13 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_stone",
       "has_pink_garnet"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:raw_pink_garnet_"
+      "mccourse:pink_garnet_stairs"
     ]
   }
 }
