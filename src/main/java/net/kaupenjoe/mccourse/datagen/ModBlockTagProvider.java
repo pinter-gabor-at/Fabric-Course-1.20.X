@@ -1,16 +1,18 @@
 package net.kaupenjoe.mccourse.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import java.util.concurrent.CompletableFuture;
+
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.util.ModTags;
+
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.util.concurrent.CompletableFuture;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -21,14 +23,14 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(ModTags.Blocks.METAL_DETECTOR_DETECTABLE_BLOCKS)
                 .add(ModBlocks.PINK_GARNET_ORE)
-                .forceAddTag(BlockTags.GOLD_ORES)
-                .forceAddTag(BlockTags.COAL_ORES)
-                .forceAddTag(BlockTags.COPPER_ORES)
-                .forceAddTag(BlockTags.DIAMOND_ORES)
-                .forceAddTag(BlockTags.IRON_ORES)
-                .forceAddTag(BlockTags.LAPIS_ORES)
-                .forceAddTag(BlockTags.REDSTONE_ORES)
-                .forceAddTag(BlockTags.EMERALD_ORES);
+			.forceAddTag(BlockTags.GOLD_ORES)
+			.forceAddTag(BlockTags.COAL_ORES)
+			.forceAddTag(BlockTags.COPPER_ORES)
+			.forceAddTag(BlockTags.DIAMOND_ORES)
+			.forceAddTag(BlockTags.IRON_ORES)
+			.forceAddTag(BlockTags.LAPIS_ORES)
+			.forceAddTag(BlockTags.REDSTONE_ORES)
+			.forceAddTag(BlockTags.EMERALD_ORES);
 
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.PINK_GARNET_ORE,
@@ -68,7 +70,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         // Tag for our custom Tool Material (Pink Garnet)
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("fabric", "needs_tool_level_5")))
                 .add(ModBlocks.DEEPSLATE_PINK_GARNET_ORE);
-
 
         getOrCreateTagBuilder(ModTags.Blocks.PAXEL_MINEABLE)
                 .forceAddTag(BlockTags.PICKAXE_MINEABLE)
