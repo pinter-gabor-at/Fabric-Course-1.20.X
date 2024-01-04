@@ -13,25 +13,33 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SoundBlock extends Block {
-    public SoundBlock(Settings settings) {
-        super(settings);
-    }
+	public SoundBlock(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos,
-                              PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(player.isSneaking()) {
-            world.playSound(player, pos, SoundEvents.BLOCK_NOTE_BLOCK_BANJO.value(), SoundCategory.BLOCKS, 1f, 1f);
-            return ActionResult.SUCCESS;
-        } else {
-            world.playSound(player, pos, SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS, 1f, 1f);
-            return ActionResult.CONSUME;
-        }
-    }
+	// Overriding the methods is an expected usage and is not deprecated in any way.
+	@SuppressWarnings("deprecation")
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos,
+		PlayerEntity player, Hand hand, BlockHitResult hit) {
+		if (player.isSneaking()) {
+			world.playSound(player, pos,
+				SoundEvents.BLOCK_NOTE_BLOCK_BANJO.value(), SoundCategory.BLOCKS,
+				1f, 1f);
+			return ActionResult.SUCCESS;
+		} else {
+			world.playSound(player, pos,
+				SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS,
+				1f, 1f);
+			return ActionResult.CONSUME;
+		}
+	}
 
-    @Override
-    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        world.playSound(entity, pos, SoundEvents.BLOCK_NOTE_BLOCK_BIT.value(), SoundCategory.BLOCKS, 1f, 1f);
-        super.onSteppedOn(world, pos, state, entity);
-    }
+	@Override
+	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
+		world.playSound(entity, pos,
+			SoundEvents.BLOCK_NOTE_BLOCK_BIT.value(), SoundCategory.BLOCKS,
+			1f, 1f);
+		super.onSteppedOn(world, pos, state, entity);
+	}
 }
