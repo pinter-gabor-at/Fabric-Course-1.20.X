@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_deepslate_pink_garnet_ore",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_deepslate_pink_garnet_ore"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:pink_garnet_from_smelting_deepslate_pink_garnet_ore"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
