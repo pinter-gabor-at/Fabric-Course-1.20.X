@@ -34,15 +34,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stone",
-      "has_pink_garnet",
-      "has_the_recipe"
+      "has_pink_garnet"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:raw_pink_garnet_"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
