@@ -8,10 +8,10 @@
   },
   "pattern": [
     "###",
-    "###",
     "###"
   ],
   "result": {
-    "item": "mccourse:pink_garnet_block"
+    "count": 6,
+    "item": "mccourse:pink_garnet_wall"
   }
 }
