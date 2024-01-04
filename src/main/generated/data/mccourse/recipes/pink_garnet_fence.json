@@ -3,15 +3,18 @@
   "category": "misc",
   "key": {
     "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
       "item": "mccourse:pink_garnet"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "W#W",
+    "W#W"
   ],
   "result": {
-    "item": "mccourse:pink_garnet_block"
+    "count": 3,
+    "item": "mccourse:pink_garnet_fence"
   }
 }

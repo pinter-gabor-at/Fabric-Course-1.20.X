@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "key": {
     "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
       "item": "mccourse:pink_garnet"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "#W#",
+    "#W#"
   ],
   "result": {
-    "item": "mccourse:pink_garnet_block"
+    "item": "mccourse:pink_garnet_fence_gate"
   }
 }
