@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_pink_garnet_block",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_pink_garnet_block"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:pink_garnet"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
