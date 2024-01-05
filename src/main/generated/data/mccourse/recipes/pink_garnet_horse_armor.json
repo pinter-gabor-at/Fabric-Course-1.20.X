@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "item": "mccourse:pink_garnet_helmet"
+    },
+    "I": {
+      "item": "mccourse:pink_garnet"
+    },
+    "L": {
+      "item": "mccourse:pink_garnet_leggings"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "  H",
+    "IWI",
+    "L L"
+  ],
+  "result": {
+    "item": "mccourse:pink_garnet_horse_armor"
+  }
+}
