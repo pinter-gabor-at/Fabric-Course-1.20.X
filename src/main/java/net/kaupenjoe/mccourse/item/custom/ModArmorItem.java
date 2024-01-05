@@ -34,40 +34,12 @@ public class ModArmorItem extends ArmorItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		if (!world.isClient() && entity instanceof PlayerEntity player) {
-			if (hasFullSuitOfArmorOn(player)) {
-				evaluateArmorEffects(player);
+			ArmorMaterial armorMaterial = getFullArmorMaterial(player);
+			if (armorMaterial != null) {
+				evaluateArmorEffects(player, armorMaterial);
 			}
 		}
-
 		super.inventoryTick(stack, world, entity, slot, selected);
-	}
-
-	/**
-	 * If player wears a full armor, made entirely of {@link ArmorMaterial} and that {@link ArmorMaterial} has a
-	 * corresponding {@link StatusEffectInstance} in {@link #MATERIAL_TO_EFFECT_MAP}, then apply that statuseffect
-	 */
-	private void evaluateArmorEffects(PlayerEntity player) {
-		for (Map.Entry<ArmorMaterial, StatusEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-			ArmorMaterial armorMaterial = entry.getKey();
-			StatusEffectInstance statusEffect = entry.getValue();
-
-			if (hasCorrectArmorOn(armorMaterial, player)) {
-				applyStatusEffect(player, statusEffect);
-				break;
-			}
-		}
-	}
-
-	/**
-	 * Apply statusEffect to player
-	 */
-	private void applyStatusEffect(PlayerEntity player, StatusEffectInstance statusEffect) {
-		boolean hasPlayerEffectAlready = player.hasStatusEffect(statusEffect.getEffectType());
-
-		if (!hasPlayerEffectAlready) {
-			player.addStatusEffect(new StatusEffectInstance(statusEffect.getEffectType(),
-				statusEffect.getDuration(), statusEffect.getAmplifier()));
-		}
 	}
 
 	/**
@@ -91,8 +63,48 @@ public class ModArmorItem extends ArmorItem {
 	}
 
 	/**
+	 * If player wears a full armor, made entirely of armorMaterial and that has a corresponding
+	 * {@link StatusEffectInstance} in {@link #MATERIAL_TO_EFFECT_MAP}, then apply that statusEffect
+	 */
+	protected void evaluateArmorEffects(@NotNull PlayerEntity player, @NotNull ArmorMaterial armorMaterial) {
+		StatusEffectInstance statusEffect = MATERIAL_TO_EFFECT_MAP.get(armorMaterial);
+		if (statusEffect != null) {
+			applyStatusEffect(player, statusEffect);
+		}
+	}
+
+	/**
+	 * If player wears a full armor, made entirely of {@link ArmorMaterial} and that {@link ArmorMaterial} has a
+	 * corresponding {@link StatusEffectInstance} in {@link #MATERIAL_TO_EFFECT_MAP}, then apply that statuseffect
+	 */
+	@SuppressWarnings("unused")
+	@Deprecated
+	protected void evaluateArmorEffects(PlayerEntity player) {
+		for (Map.Entry<ArmorMaterial, StatusEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+			ArmorMaterial armorMaterial = entry.getKey();
+			StatusEffectInstance statusEffect = entry.getValue();
+
+			if (hasCorrectArmorOn(armorMaterial, player)) {
+				applyStatusEffect(player, statusEffect);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Apply statusEffect to player
+	 */
+	protected void applyStatusEffect(@NotNull PlayerEntity player, @NotNull StatusEffectInstance statusEffect) {
+		if (!player.hasStatusEffect(statusEffect.getEffectType())) {
+			player.addStatusEffect(new StatusEffectInstance(statusEffect.getEffectType(),
+				statusEffect.getDuration(), statusEffect.getAmplifier()));
+		}
+	}
+
+	/**
 	 * @return true if player wears a full armor made of armorMaterial
 	 */
+	@SuppressWarnings("unused")
 	@Deprecated
 	private boolean hasCorrectArmorOn(ArmorMaterial armorMaterial, PlayerEntity player) {
 		for (ItemStack armorStack : player.getArmorItems()) {
@@ -113,6 +125,7 @@ public class ModArmorItem extends ArmorItem {
 	/**
 	 * @return true if the player wears a full armor
 	 */
+	@SuppressWarnings("unused")
 	@Deprecated
 	private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
 		ItemStack boots = player.getInventory().getArmorStack(0);
