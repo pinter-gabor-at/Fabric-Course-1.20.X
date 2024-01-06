@@ -167,6 +167,16 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 			.criterion(hasItem(Items.BOOK), conditionsFromItem(Items.BOOK))
 			.criterion(hasItem(ModItems.METAL_DETECTOR), conditionsFromItem(ModItems.METAL_DETECTOR))
 			.offerTo(exporter);
+
+		ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.PINK_GARNET_BOW)
+			.pattern(" IS")
+			.pattern("X S")
+			.pattern(" IS")
+			.input('I', Items.STICK)
+			.input('S', Items.STRING)
+			.input('X', ModItems.PINK_GARNET)
+			.criterion(hasItem(ModItems.PINK_GARNET), conditionsFromItem(ModItems.PINK_GARNET))
+			.offerTo(exporter);
 	}
 
 	/**
