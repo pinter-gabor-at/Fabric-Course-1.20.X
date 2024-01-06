@@ -1,40 +1,38 @@
 {
-	"schemaVersion": 1,
-	"id": "mccourse",
-	"version": "${version}",
-	"name": "MC Course Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Kaupejoe"
-	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
-	"license": "MIT",
-	"icon": "assets/mccourse/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"net.kaupenjoe.mccourse.MCCourseMod"
-		],
-		"fabric-datagen": [
-			"net.kaupenjoe.mccourse.MCCourseModDataGenerator"
-		],
-		"client": [
-			"net.kaupenjoe.mccourse.MCCourseModClient"
-		]
-	},
-	"mixins": [
-		"mccourse.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20",
-		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "mccourse",
+  "version": "${version}",
+  "name": "MC Course Mod",
+  "description": "Modding by Kaupenjoe: Minecraft 1.20.X Modding Course with Fabric",
+  "authors": [
+    "Kaupejoe",
+    "Pintér Gábor <pinter.gaboe@gmx.at>"
+  ],
+  "contact": {
+    "homepage": "https://courses.kaupenjoe.net/",
+    "sources": "https://github.com/pinter-gabor-at/Fabric-Course-1.20.X"
+  },
+  "license": "MIT",
+  "icon": "assets/mccourse/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.kaupenjoe.mccourse.MCCourseMod"
+    ],
+    "fabric-datagen": [
+      "net.kaupenjoe.mccourse.MCCourseModDataGenerator"
+    ],
+    "client": [
+      "net.kaupenjoe.mccourse.MCCourseModClient"
+    ]
+  },
+  "mixins": [
+    "mccourse.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15",
+    "minecraft": "~1.20.4",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "mccourse:item/data_tablet",
+  "textures": {
+    "layer0": "mccourse:item/data_tablet_on"
+  }
+}
