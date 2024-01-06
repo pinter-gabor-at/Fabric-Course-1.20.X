@@ -1,7 +1,5 @@
 package net.kaupenjoe.mccourse;
 
-import net.fabricmc.api.ModInitializer;
-
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.effect.ModEffects;
 import net.kaupenjoe.mccourse.enchantment.ModEnchantments;
@@ -12,8 +10,11 @@ import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.ModLootTableModifiers;
 import net.kaupenjoe.mccourse.util.ModRegistries;
+import net.kaupenjoe.mccourse.util.ModTags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.fabricmc.api.ModInitializer;
 
 public class MCCourseMod implements ModInitializer {
 	public static final String MOD_ID = "mccourse";
@@ -22,19 +23,15 @@ public class MCCourseMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItemGroup.registerItemGroups();
-
-		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
-
-		ModRegistries.registerModStuffs();
-		ModEnchantments.registerModEnchantments();
-
+		ModTags.registerModTags();
 		ModSounds.registerSounds();
+		ModBlocks.registerModBlocks();
+		ModItems.registerModItems();
+		ModEnchantments.registerModEnchantments();
 		ModLootTableModifiers.modifyLootTables();
-
 		ModPaintings.registerPaintings();
 		ModEffects.registerEffects();
-
 		ModPotions.registerPotions();
+		ModRegistries.registerModStuffs();
 	}
 }
