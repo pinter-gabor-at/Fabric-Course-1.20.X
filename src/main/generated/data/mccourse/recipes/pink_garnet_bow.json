@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "X": {
+      "item": "mccourse:pink_garnet"
+    }
+  },
+  "pattern": [
+    " IS",
+    "X S",
+    " IS"
+  ],
+  "result": {
+    "item": "mccourse:pink_garnet_bow"
+  }
+}
