@@ -1,26 +1,15 @@
 package net.kaupenjoe.mccourse.datagen;
 
-import java.util.Map;
+import static net.kaupenjoe.mccourse.datagen.util.RegisterModel.registerCustomLamp;
+import static net.kaupenjoe.mccourse.datagen.util.RegisterModel.registerItemOnOff;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.kaupenjoe.mccourse.block.ModBlocks;
-import net.kaupenjoe.mccourse.block.custom.PinkGarnetLampBlock;
 import net.kaupenjoe.mccourse.item.ModItems;
-
-import net.kaupenjoe.mccourse.util.ModIdentifier;
 
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.ModelIds;
 import net.minecraft.data.client.Models;
-import net.minecraft.data.client.TextureKey;
-import net.minecraft.data.client.TextureMap;
-import net.minecraft.data.client.TexturedModel;
-import net.minecraft.data.client.VariantsBlockStateSupplier;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -49,14 +38,7 @@ public class ModModelProvider extends FabricModelProvider {
 		pinkGarnetTexturePool.wall(ModBlocks.PINK_GARNET_WALL);
 		blockStateModelGenerator.registerDoor(ModBlocks.PINK_GARNET_DOOR);
 		blockStateModelGenerator.registerTrapdoor(ModBlocks.PINK_GARNET_TRAPDOOR);
-		registerCustomLamp(blockStateModelGenerator);
-	}
-
-	private void registerCustomLamp(BlockStateModelGenerator blockStateModelGenerator) {
-		Identifier identifier = TexturedModel.CUBE_ALL.upload(ModBlocks.PINK_GARNET_LAMP_BLOCK, blockStateModelGenerator.modelCollector);
-		Identifier identifier2 = blockStateModelGenerator.createSubModel(ModBlocks.PINK_GARNET_LAMP_BLOCK, "_on", Models.CUBE_ALL, TextureMap::all);
-		blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.PINK_GARNET_LAMP_BLOCK)
-			.coordinate(BlockStateModelGenerator.createBooleanModelMap(PinkGarnetLampBlock.CLICKED, identifier2, identifier)));
+		registerCustomLamp(blockStateModelGenerator, ModBlocks.PINK_GARNET_LAMP_BLOCK);
 	}
 
 	@Override
@@ -78,36 +60,5 @@ public class ModModelProvider extends FabricModelProvider {
 		itemModelGenerator.registerArmor(((ArmorItem) ModItems.PINK_GARNET_BOOTS));
 		itemModelGenerator.register(ModItems.PINK_GARNET_HORSE_ARMOR, Models.GENERATED);
 		registerItemOnOff(itemModelGenerator, ModItems.DATA_TABLET);
-	}
-
-	/**
-	 * Register an item which has two models: a default and an "on"
-	 */
-	private void registerItemOnOff(ItemModelGenerator itemModelGenerator, Item item) {
-		// Submodel ("on")
-		itemModelGenerator.register(item, "_on", Models.GENERATED);
-		// Model (default)
-		Models.GENERATED.upload(ModelIds.getItemModelId(item), TextureMap.layer0(item),
-			itemModelGenerator.writer, this::createOnJson);
-	}
-
-	/**
-	 * Used by {@link #registerItemOnOff(ItemModelGenerator, Item)}
-	 */
-	private JsonObject createOnJson(Identifier id, Map<TextureKey, Identifier> textures) {
-		// "predicate": {}
-		JsonObject jsonPredicate = new JsonObject();
-		jsonPredicate.addProperty(new ModIdentifier("on").toString(), 1);
-		// { "model", "predicate" }
-		JsonObject jsonOverride = new JsonObject();
-		jsonOverride.add("predicate", jsonPredicate);
-		jsonOverride.addProperty("model", id.toString() + "_on");
-		// "overrides": []
-		JsonArray jsonOverrides = new JsonArray();
-		jsonOverrides.add(jsonOverride);
-		// { parent, overrides, textures }
-		JsonObject jsonObject = Models.GENERATED.createJson(id, textures);
-		jsonObject.add("overrides", jsonOverrides);
-		return jsonObject;
 	}
 }
