@@ -4,9 +4,12 @@ import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.particle.ModParticles;
 import net.kaupenjoe.mccourse.particle.PinkGarnetParticle;
+import net.kaupenjoe.mccourse.screen.GemEmpoweringScreen;
+import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.util.ModIdentifier;
 import net.kaupenjoe.mccourse.util.ModModelPredicateProvider;
 
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.ModelIdentifier;
 
@@ -34,5 +37,6 @@ public class MCCourseModClient implements ClientModInitializer {
 			ModFluids.STILL_SOAP_WATER, ModFluids.FLOWING_SOAP_WATER);
 		ModelLoadingPlugin.register(pluginContext ->
 			new ModelIdentifier(new ModIdentifier("radiation_staff_3d"), "inventory"));
+		HandledScreens.register(ModScreenHandlers.GEM_EMPOWERING_SCREEN_HANDLER, GemEmpoweringScreen::new);
 	}
 }
