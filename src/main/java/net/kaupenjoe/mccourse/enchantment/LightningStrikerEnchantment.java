@@ -22,17 +22,14 @@ public class LightningStrikerEnchantment extends Enchantment {
 		if (!user.getWorld().isClient()) {
 			ServerWorld world = (ServerWorld) user.getWorld();
 			BlockPos position = target.getBlockPos();
-
 			if (level == 1) {
 				EntityType.LIGHTNING_BOLT.spawn(world, position, SpawnReason.TRIGGERED);
 			}
-
 			if (level == 2) {
 				EntityType.LIGHTNING_BOLT.spawn(world, position, SpawnReason.TRIGGERED);
 				EntityType.LIGHTNING_BOLT.spawn(world, position, SpawnReason.TRIGGERED);
 			}
 		}
-
 		super.onTargetDamaged(user, target, level);
 	}
 

@@ -28,14 +28,14 @@ public class GemEmpoweringRecipeBuilder implements CraftingRecipeJsonBuilder {
 	}
 
 	@Override
-	public CraftingRecipeJsonBuilder criterion(
+	public GemEmpoweringRecipeBuilder criterion(
 		String string, AdvancementCriterion<?> criterion) {
 		this.advancement.criterion(string, criterion);
 		return this;
 	}
 
 	@Override
-	public CraftingRecipeJsonBuilder group(@Nullable String group) {
+	public GemEmpoweringRecipeBuilder group(@Nullable String group) {
 		return this;
 	}
 
