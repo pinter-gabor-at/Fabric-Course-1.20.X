@@ -47,5 +47,16 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
 		addDrop(ModBlocks.CAULIFLOWER_CROP,
 			cropDrops(ModBlocks.CAULIFLOWER_CROP, ModItems.CAULIFLOWER,
 				ModItems.CAULIFLOWER_SEEDS, builder));
+		addDrop(ModBlocks.DRIFTWOOD_LOG);
+		addDrop(ModBlocks.DRIFTWOOD_WOOD);
+		addDrop(ModBlocks.STRIPPED_DRIFTWOOD_LOG);
+		addDrop(ModBlocks.STRIPPED_DRIFTWOOD_WOOD);
+		addDrop(ModBlocks.DRIFTWOOD_PLANKS);
+		addDrop(ModBlocks.DRIFTWOOD_LEAVES);
+		addDrop(ModBlocks.DRIFTWOOD_SAPLING);
+		addDrop(ModBlocks.DRIFTWOOD_SIGN, ModItems.DRIFTWOOD_SIGN);
+		//addDrop(ModBlocks.DRIFTWOOD_WALL_SIGN, ModItems.DRIFTWOOD_SIGN);
+		addDrop(ModBlocks.DRIFTWOOD_HANGING_SIGN, ModItems.DRIFTWOOD_HANGING_SIGN);
+		//addDrop(ModBlocks.DRIFTWOOD_HANGING_WALL_SIGN, ModItems.DRIFTWOOD_HANGING_SIGN);
 	}
 }
