@@ -10,6 +10,7 @@ import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.item.ArmorItem;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -51,11 +52,21 @@ public class ModModelProvider extends FabricModelProvider {
 		blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_DRIFTWOOD_LOG)
 			.log(ModBlocks.STRIPPED_DRIFTWOOD_LOG)
 			.wood(ModBlocks.STRIPPED_DRIFTWOOD_WOOD);
+		BlockStateModelGenerator.BlockTexturePool driftwoodTexturePool =
+			blockStateModelGenerator
+			.registerCubeAllModelTexturePool(ModBlocks.DRIFTWOOD_PLANKS);
+		driftwoodTexturePool.family(
+			BlockFamilies.register(ModBlocks.DRIFTWOOD_PLANKS)
+			.sign(ModBlocks.DRIFTWOOD_SIGN, ModBlocks.DRIFTWOOD_WALL_SIGN)
+			.build());
+		blockStateModelGenerator
+			.registerHangingSign(
+				ModBlocks.STRIPPED_DRIFTWOOD_LOG,
+				ModBlocks.DRIFTWOOD_HANGING_SIGN,
+				ModBlocks.DRIFTWOOD_HANGING_WALL_SIGN);
 		blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.DRIFTWOOD_SAPLING,
 			BlockStateModelGenerator.TintType.NOT_TINTED);
 		blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DRIFTWOOD_LEAVES);
-		blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.DRIFTWOOD_SAPLING,
-			BlockStateModelGenerator.TintType.NOT_TINTED);
 	}
 
 	@Override

@@ -184,12 +184,38 @@ public class ModBlocks {
 		DRIFTWOOD_SAPLING = registerBlock("driftwood_sapling",
 			new SaplingBlock(null, FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).strength(1f)));
 		DRIFTWOOD_SIGN = registerBlockWithoutBlockItem("driftwood_sign",
-			new ModStandingSignBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SIGN), ModWoodTypes.DRIFTWOOD));
+			new ModStandingSignBlock(
+				FabricBlockSettings
+					.create()
+					.mapColor(MapColor.ORANGE)
+					.solid()
+					.instrument(Instrument.BASS)
+					.noCollision()
+					.strength(1.0F)
+					.burnable(),
+				ModWoodTypes.DRIFTWOOD));
 		DRIFTWOOD_WALL_SIGN = registerBlockWithoutBlockItem("driftwood_wall_sign",
-			new ModWallSignBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WALL_SIGN), ModWoodTypes.DRIFTWOOD));
+			new ModWallSignBlock(
+				FabricBlockSettings
+					.copyOf(DRIFTWOOD_SIGN)
+					.dropsLike(DRIFTWOOD_SIGN),
+				ModWoodTypes.DRIFTWOOD));
 		DRIFTWOOD_HANGING_SIGN = registerBlockWithoutBlockItem("driftwood_hanging_sign",
-			new ModHangingSignBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_HANGING_SIGN), ModWoodTypes.DRIFTWOOD));
+			new ModHangingSignBlock(
+				FabricBlockSettings
+					.create()
+					.mapColor(MapColor.ORANGE)
+					.solid()
+					.instrument(Instrument.BASS)
+					.noCollision()
+					.strength(1.0F)
+					.burnable(),
+				ModWoodTypes.DRIFTWOOD));
 		DRIFTWOOD_HANGING_WALL_SIGN = registerBlockWithoutBlockItem("driftwood_hanging_wall_sign",
-			new ModWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WALL_HANGING_SIGN), ModWoodTypes.DRIFTWOOD));
+			new ModWallHangingSignBlock(
+				FabricBlockSettings
+					.copyOf(DRIFTWOOD_HANGING_SIGN)
+					.dropsLike(DRIFTWOOD_HANGING_SIGN),
+				ModWoodTypes.DRIFTWOOD));
 	}
 }
