@@ -17,9 +17,11 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class GemEmpoweringBlockEntityRenderer implements BlockEntityRenderer<GemEmpoweringStationBlockEntity> {
-    public GemEmpoweringBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+import org.jetbrains.annotations.Nullable;
 
+public class GemEmpoweringBlockEntityRenderer implements BlockEntityRenderer<GemEmpoweringStationBlockEntity> {
+    @SuppressWarnings("unused")
+	public GemEmpoweringBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
 
     @Override
@@ -32,13 +34,15 @@ public class GemEmpoweringBlockEntityRenderer implements BlockEntityRenderer<Gem
         matrices.scale(0.35f, 0.35f, 0.35f);
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(entity.getCachedState().get(GemEmpoweringStationBlock.FACING).asRotation()));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(270));
-
         itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, getLightLevel(entity.getWorld(),
                 entity.getPos()), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 1);
         matrices.pop();
     }
 
-    private int getLightLevel(World world, BlockPos pos) {
+    private int getLightLevel(@Nullable World world, BlockPos pos) {
+		if (world == null) {
+			return 0;
+		}
         int bLight = world.getLightLevel(LightType.BLOCK, pos);
         int sLight = world.getLightLevel(LightType.SKY, pos);
         return LightmapTextureManager.pack(bLight, sLight);
