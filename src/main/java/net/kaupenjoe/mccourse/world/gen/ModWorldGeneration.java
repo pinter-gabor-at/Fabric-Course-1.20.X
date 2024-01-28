@@ -1,9 +1,8 @@
 package net.kaupenjoe.mccourse.world.gen;
 
 public class ModWorldGeneration {
-    public static void generateModWorldGeneration() {
-        ModOreGeneration.generateOres();
-
-        ModTreeGeneration.generateTrees();
-    }
+	public static void generateModWorldGeneration() {
+		ModTreeGeneration.generateTrees();
+		ModOreGeneration.generateOres();
+	}
 }
