@@ -1,116 +1,121 @@
 package net.kaupenjoe.mccourse.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import static net.kaupenjoe.mccourse.recipe.RecipeUtils.filterEmptyIngredients;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class GemEmpoweringRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
-    private final ItemStack output;
-    private final DefaultedList<Ingredient> recipeItems;
+	private final ItemStack output;
+	private final DefaultedList<Ingredient> recipeItems;
 
-    public GemEmpoweringRecipe(Identifier id, ItemStack output, DefaultedList<Ingredient> recipeItems) {
-        this.id = id;
-        this.output = output;
-        this.recipeItems = recipeItems;
-    }
+	public GemEmpoweringRecipe(ItemStack output, DefaultedList<Ingredient> recipeItems) {
+		this.output = output;
+		this.recipeItems = recipeItems;
+	}
 
-    @Override
-    public boolean matches(SimpleInventory inventory, World world) {
-        if(world.isClient()) {
-            return false;
-        }
+	@Override
+	public boolean matches(SimpleInventory inventory, World world) {
+		if (world.isClient()) {
+			return false;
+		}
+		return recipeItems.get(0).test(inventory.getStack(0));
+	}
 
-        return recipeItems.get(0).test(inventory.getStack(0));
-    }
+	@Override
+	public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
+		return output.copy();
+	}
 
-    @Override
-    public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
-        return output.copy();
-    }
+	@Override
+	public boolean fits(int width, int height) {
+		return true;
+	}
 
-    @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
+	@Override
+	public ItemStack getResult(DynamicRegistryManager registryManager) {
+		return output.copy();
+	}
 
-    @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManager) {
-        return output.copy();
-    }
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return Serializer.INSTANCE;
+	}
 
-    @Override
-    public Identifier getId() {
-        return this.id;
-    }
+	@Override
+	public RecipeType<?> getType() {
+		return Type.INSTANCE;
+	}
 
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
-    }
+	@Override
+	public DefaultedList<Ingredient> getIngredients() {
+		return this.recipeItems;
+	}
 
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
+	public static class Type implements RecipeType<GemEmpoweringRecipe> {
+		public static final Type INSTANCE = new Type();
+		public static final String ID = "gem_empowering";
 
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        return this.recipeItems;
-    }
+		private Type() {
+		}
+	}
 
-    public static class Type implements RecipeType<GemEmpoweringRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "gem_empowering";
-    }
+	public static class Serializer implements RecipeSerializer<GemEmpoweringRecipe> {
+		public static final Serializer INSTANCE = new Serializer();
+		public static final String ID = "gem_empowering";
+		private static Codec<GemEmpoweringRecipe> CODEC;
 
-    public static class Serializer implements RecipeSerializer<GemEmpoweringRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "gem_empowering";
-        // this is the name given in the json file
+		private Serializer() {
+			final RecordCodecBuilder<GemEmpoweringRecipe, ItemStack> rcbOutput =
+				ItemStack.RECIPE_RESULT_CODEC.fieldOf("output")
+					.forGetter((recipe) -> recipe.output);
+			final RecordCodecBuilder<GemEmpoweringRecipe, DefaultedList<Ingredient>> rcbInput =
+				Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").flatXmap(
+						(ingredients) -> {
+							Ingredient[] filtered = filterEmptyIngredients(ingredients);
+							return 1 <= filtered.length && filtered.length <= 3 ?
+								DataResult.success(DefaultedList.copyOf(Ingredient.EMPTY, filtered)) :
+								DataResult.error(() ->
+									"The number of ingredients for a gem empowering recipe " +
+										"must be between 1 and 3, inclusive.");
+						}, DataResult::success)
+					.forGetter((recipe) -> recipe.recipeItems);
+			CODEC = RecordCodecBuilder.create((instance) ->
+				instance.group(rcbOutput, rcbInput).apply(instance, GemEmpoweringRecipe::new));
+		}
 
-        @Override
-        public GemEmpoweringRecipe read(Identifier id, JsonObject json) {
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+		@Override
+		public Codec<GemEmpoweringRecipe> codec() {
+			return CODEC;
+		}
 
-            JsonArray ingredients = JsonHelper.getArray(json, "ingredients");
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(1, Ingredient.EMPTY);
+		@Override
+		public GemEmpoweringRecipe read(PacketByteBuf buf) {
+			DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
+			inputs.replaceAll(ignored -> Ingredient.fromPacket(buf));
+			ItemStack output = buf.readItemStack();
+			return new GemEmpoweringRecipe(output, inputs);
+		}
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
-
-            return new GemEmpoweringRecipe(id, output, inputs);
-        }
-
-        @Override
-        public GemEmpoweringRecipe read(Identifier id, PacketByteBuf buf) {
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
-
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
-            }
-
-            ItemStack output = buf.readItemStack();
-            return new GemEmpoweringRecipe(id, output, inputs);
-        }
-
-        @Override
-        public void write(PacketByteBuf buf, GemEmpoweringRecipe recipe) {
-            buf.writeInt(recipe.getIngredients().size());
-            for (Ingredient ing : recipe.getIngredients()) {
-                ing.write(buf);
-            }
-            buf.writeItemStack(recipe.getOutput(null));
-        }
-    }
+		@Override
+		public void write(PacketByteBuf buf, GemEmpoweringRecipe recipe) {
+			buf.writeInt(recipe.getIngredients().size());
+			for (Ingredient ing : recipe.getIngredients()) {
+				ing.write(buf);
+			}
+			buf.writeItemStack(recipe.getResult(null));
+		}
+	}
 }
