@@ -15,21 +15,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "background": "mccourse:block/pink_garnet_ore",
-    "description": {
-      "text": "Batteries not included! (Actually doesn't need batteries)"
-    },
-    "frame": "task",
-    "hidden": false,
+    "description": "Batteries not included! (Actually doesn't need batteries)",
     "icon": {
       "item": "mccourse:metal_detector",
       "nbt": "{Damage:0}"
     },
-    "show_toast": true,
-    "title": {
-      "text": "Metal Detector"
-    }
+    "title": "Metal Detector"
   },
   "requirements": [
     [
