@@ -15,7 +15,8 @@ public class MCCourseModREIClientPlugin implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new GemEmpoweringCategory());
 
-        registry.addWorkstations(GemEmpoweringCategory.GEM_EMPOWERING, EntryStacks.of(ModBlocks.GEM_EMPOWERING_STATION));
+        registry.addWorkstations(GemEmpoweringCategory.GEM_EMPOWERING,
+			EntryStacks.of(ModBlocks.GEM_EMPOWERING_STATION));
     }
 
     @Override
