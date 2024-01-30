@@ -1,11 +1,12 @@
 package net.kaupenjoe.mccourse.util;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.minecraft.block.BlockSetType;
 import net.minecraft.block.WoodType;
-import net.minecraft.util.Identifier;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 
 public class ModWoodTypes {
-    public static final WoodType DRIFTWOOD = WoodTypeRegistry.register(new Identifier(MCCourseMod.MOD_ID, "driftwood"), BlockSetType.OAK);
+	public static final WoodType DRIFTWOOD = WoodTypeBuilder
+		.copyOf(WoodType.OAK)
+		.register(new ModIdentifier("driftwood"), BlockSetType.OAK);
 }
