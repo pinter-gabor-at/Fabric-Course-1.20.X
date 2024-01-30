@@ -17,22 +17,23 @@ import net.minecraft.world.poi.PointOfInterestType;
 public class ModVillagers {
     public static final RegistryKey<PointOfInterestType> SOUND_POI_KEY = registerPoiKey("soundpoi");
     public static final PointOfInterestType SOUND_POI = registerPoi("soundpoi", ModBlocks.SOUND_BLOCK);
-
     public static final VillagerProfession SOUND_MASTER = registerProfession("soundmaster", SOUND_POI_KEY);
 
-
+	@SuppressWarnings("SameParameterValue")
     private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type) {
         return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(MCCourseMod.MOD_ID, name),
                 new VillagerProfession(name, entry -> true, entry -> entry.matchesKey(type),
                         ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_MASON));
     }
 
+	@SuppressWarnings("SameParameterValue")
     private static PointOfInterestType registerPoi(String name, Block block) {
         return PointOfInterestHelper.register(new Identifier(MCCourseMod.MOD_ID, name),
                 1,1, block);
     }
 
-    private static RegistryKey<PointOfInterestType> registerPoiKey(String name) {
+    @SuppressWarnings("SameParameterValue")
+	private static RegistryKey<PointOfInterestType> registerPoiKey(String name) {
         return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(MCCourseMod.MOD_ID, name));
     }
 
