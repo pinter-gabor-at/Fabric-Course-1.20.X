@@ -20,19 +20,19 @@ public class DiceItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
+        world.playSound(null, user.getX(), user.getY(), user.getZ(),
+			SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL,
+			0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
         if (!world.isClient) {
             DiceProjectileEntity diceProjectile = new DiceProjectileEntity(user, world);
             diceProjectile.setItem(itemStack);
             diceProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 0f);
             world.spawnEntity(diceProjectile);
         }
-
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         if (!user.getAbilities().creativeMode) {
             itemStack.decrement(1);
         }
-
         return TypedActionResult.success(itemStack, world.isClient());
     }
 }
