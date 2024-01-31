@@ -24,6 +24,7 @@ import java.util.List;
  */
 @FunctionalInterface
 public interface ImplementedInventory extends SidedInventory {
+
     /**
      * Gets the item list of this inventory.
      * Must return the same instance every time it's called.
@@ -48,11 +49,12 @@ public interface ImplementedInventory extends SidedInventory {
      * @param size the inventory size
      * @return a new inventory
      */
-    static ImplementedInventory ofSize(int size) {
+    @SuppressWarnings("unused")
+	static ImplementedInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
-    // SidedInventory
+    // region SidedInventory
 
     /**
      * Gets the available slots to automation on the side.
@@ -68,7 +70,6 @@ public interface ImplementedInventory extends SidedInventory {
         for (int i = 0; i < result.length; i++) {
             result[i] = i;
         }
-
         return result;
     }
 
@@ -101,8 +102,9 @@ public interface ImplementedInventory extends SidedInventory {
     default boolean canExtract(int slot, ItemStack stack, Direction side) {
         return true;
     }
+	// endregion
 
-    // Inventory
+    // region Inventory
 
     /**
      * Returns the inventory size.
@@ -127,7 +129,6 @@ public interface ImplementedInventory extends SidedInventory {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -158,7 +159,6 @@ public interface ImplementedInventory extends SidedInventory {
         if (!result.isEmpty()) {
             markDirty();
         }
-
         return result;
     }
 
@@ -209,4 +209,5 @@ public interface ImplementedInventory extends SidedInventory {
     default boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
+	// endregion
 }
