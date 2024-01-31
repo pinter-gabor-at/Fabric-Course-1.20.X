@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_raw_pink_garnet",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_raw_pink_garnet"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:pink_garnet_from_smelting_raw_pink_garnet"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

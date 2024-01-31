@@ -1,6 +1,8 @@
 package net.kaupenjoe.mccourse.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.kaupenjoe.mccourse.util.ModIdentifier;
+
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.kaupenjoe.mccourse.MCCourseMod;
@@ -19,7 +21,7 @@ import java.util.Optional;
 
 public class GemEmpoweringScreen extends HandledScreen<GemEmpoweringScreenHandler> {
     private static final Identifier TEXTURE =
-            new Identifier(MCCourseMod.MOD_ID, "textures/gui/gem_empowering_station_gui.png");
+		new ModIdentifier("textures/gui/gem_empowering_station_gui.png");
     private EnergyInfoArea energyInfoArea;
     private FluidStackRenderer fluidStackRenderer;
 
@@ -71,13 +73,11 @@ public class GemEmpoweringScreen extends HandledScreen<GemEmpoweringScreenHandle
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
-
         renderProgressArrow(context, x, y);
 
         energyInfoArea.draw(context);
@@ -86,14 +86,14 @@ public class GemEmpoweringScreen extends HandledScreen<GemEmpoweringScreenHandle
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isCrafting()) {
+		if (handler.isCrafting()) {
             context.drawTexture(TEXTURE, x + 85, y + 30, 176, 0, 8, handler.getScaledProgress());
         }
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
+		renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
