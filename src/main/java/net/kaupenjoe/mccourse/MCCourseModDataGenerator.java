@@ -1,19 +1,29 @@
 package net.kaupenjoe.mccourse;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.kaupenjoe.mccourse.datagen.*;
+import net.kaupenjoe.mccourse.datagen.ModAdvancementProvider;
+import net.kaupenjoe.mccourse.datagen.ModBlockLootTableGenerator;
+import net.kaupenjoe.mccourse.datagen.ModBlockTagProvider;
+import net.kaupenjoe.mccourse.datagen.ModFluidTagProvider;
+import net.kaupenjoe.mccourse.datagen.ModItemTagProvider;
+import net.kaupenjoe.mccourse.datagen.ModModelProvider;
+import net.kaupenjoe.mccourse.datagen.ModPOITagProvider;
+import net.kaupenjoe.mccourse.datagen.ModPaintingVariantTagProvider;
+import net.kaupenjoe.mccourse.datagen.ModRecipeGenerator;
+import net.kaupenjoe.mccourse.datagen.ModWorldGenerator;
 import net.kaupenjoe.mccourse.world.ModConfiguredFeatures;
 import net.kaupenjoe.mccourse.world.ModPlacedFeatures;
 import net.kaupenjoe.mccourse.world.biome.ModBiomes;
+
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
+
+import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class MCCourseModDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModBlockLootTableGenerator::new);
